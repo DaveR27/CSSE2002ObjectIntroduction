@@ -8,6 +8,7 @@ public class Thing {
 
     Thing(String shortDesc, String longDesc){
 
+        //TODO Shorter way to do this.
         this.shortDesc = shortDesc.replaceAll("\n", "*");
         this.shortDesc = this.shortDesc.replaceAll("\r", "*");
         this.shortDesc = this.shortDesc.replaceAll(";", "*");

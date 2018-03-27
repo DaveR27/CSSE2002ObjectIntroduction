@@ -187,10 +187,8 @@ public class Explorer extends Thing implements Mob {
                 this.inventory.remove(thingIterator.next());
                 return thingRemoved;
             }
-            else{
-            return null;
-            }
         }
+        return null;
     }
 
     /*
