@@ -8,12 +8,7 @@ public class Treasure extends Thing implements Lootable{
     }
 
     public boolean canLoot(Thing looter){
-        if(looter instanceof Explorer){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return looter instanceof Explorer;
     }
 
     public double getValue(){

@@ -3,6 +3,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
@@ -16,4 +18,40 @@ public class RoomTest {
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
+    @Before
+    public void setUp() throws Exception {
+
+    }
+
+    @Test
+    public void getDescription() {
+    }
+
+    @Test
+    public void setDescription() {
+    }
+
+    @Test
+    public void getExits() {
+    }
+
+    @Test
+    public void getContents() {
+    }
+
+    @Test
+    public void addExit() {
+    }
+
+    @Test
+    public void removeExit() {
+    }
+
+    @Test
+    public void enter() {
+    }
+
+    @Test
+    public void leave() {
+    }
 }

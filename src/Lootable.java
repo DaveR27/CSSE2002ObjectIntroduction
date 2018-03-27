@@ -1,8 +1,17 @@
 public interface Lootable {
 
-    //Returns the value of the item
+    /*
+    Returns a double value
+
+    @return double
+     */
     double getValue();
 
-    //Returns true if the item is able to be looted
+    /*
+    Returns a boolean of whether or not a Thing can loot this object
+
+    @param Thing looter: A thing that is able to take the loot
+    @return Boolean
+     */
     boolean canLoot(Thing looter);
 }
