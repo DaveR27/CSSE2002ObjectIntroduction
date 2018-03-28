@@ -1,125 +1,134 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
-/*
-Creates a Room object
-
-Each room contains a roomDesc, Map<String, Room>, List<Thing
+/**
+ * Class that is designed to be a building block of a Map.
  */
 public class Room {
 
     private String roomDesc;
-    private Map<String, Room> rooms = new HashMap<String, Room>();
+    private Map<String, Room> roomExits = new HashMap<String, Room>();
     private List<Thing> roomContents = new Vector<Thing>();
 
-
-    /*
-    Takes in a desc for the room.
-
-    @param String desc
+    /**
+     * Creates a new Room object.
+     *
+     * @param desc The description of the new Room being created.
      */
-    Room(String desc){
-        this.roomDesc = desc;
+    public Room(String desc){
+        this.roomDesc = desc.replaceAll("\n", "*");
     }
 
-    /*
-    Gets the desc for the room.
-
-    @return String this.roomDesc.
+    /**
+     * Gets the description of the Room.
+     *
+     * @return The description of the Room.
      */
     public String getDescription(){
         return this.roomDesc;
     }
 
-    /*
-    Sets the desc for the room to something new
-
-    @param String desc: New Room description
+    /**
+     * Sets the new description for the Room.
+     *
+     * @param desc The new description of the Room.
      */
     public void setDescription(String desc){
-        this.roomDesc = desc;
+        this.roomDesc = desc.replaceAll("\n", "*");
     }
 
-    /*
-    Returns the map of the room
-
-    @return Map<String, Room>
+    /**
+     * Gets all the exits from the current Room.
+     *
+     * @return A Map with the name of the exits for this Room and where
+     *         they go to
      */
     public Map<String, Room> getExits(){
-        return this.rooms;
+        return this.roomExits;
     }
 
-    /*
-    Returns a List containing everything within that room
-
-    @return List<Thing> this.roomContents
+    /**
+     * Gets the List of all the Things within a Room.
+     *
+     * @return A List containing everything within that Room.
      */
     public List<Thing> getContents(){
         return this.roomContents;
     }
 
-    /*
-    Adds an exit to the room
-
-    @param String name: Name of the exit that is being added.
-    @param Room target: The room that the exit goes to.
-    @exception ExitExistsException: If the exist already exists.
-    @exception NullRoomException: If the target is none.
+    /**
+     * Adds an exit to the Room.
+     *
+     * @param name Name of the exit that is being added.
+     * @param target The room that the exit goes to.
+     * @throws ExitExistsException Thrown if the exist already exists.
+     * @throws NullRoomException Thrown if the target is Null.
      */
-    public void addExit(String name, Room target) throws ExitExistsException, NullRoomException{
-        if(this.rooms.containsKey(name)){
+    public void addExit(String name, Room target) throws ExitExistsException,
+            NullRoomException{
+        if(this.roomExits.containsKey(name)){
             throw new ExitExistsException();
         }
         else if(target == null){
             throw new NullRoomException();
         }
         else{
-            rooms.put(name, target);
+            roomExits.put(name, target);
         }
     }
 
-    /*
-    Removes an exit from a room
-
-    @param String name: Name of the exit that is going to be removed.
-    @exception Exception: Silently fails if if the exit doesn't exist.
+    /**
+     * Removes and exit from the room.
+     *
+     * @param name Name of the exit that is going to be removed.
+     * @exception Exception Fails silently if room doesn't exist.
      */
     public void removeExit(String name){
         try{
-            this.rooms.remove(name);
+            this.roomExits.remove(name);
         }
         catch (Exception e){
 
         }
     }
 
-    /*
-    Adds a Thing to the Room
-
-    @param Thing item: The Thing object that is going to be added.
+    /**
+     * Adds a Thing obj to the roomContents Vector
+     *
+     * @param item The Thing object that is going to be added.
      */
     public void enter(Thing item){
         this.roomContents.add(item);
     }
 
-    /*
-    Removes item from the Room
-
-    Note: Will fail by returning false if item is not in the room
-    or if something wants to fight item
-    @return Boolean: True if successful, false otherwise.
+    /**
+     * Removes item from the Room
+     *
+     * Note: Will fail by returning false if item is not in the room
+     * or if something wants to fight item.
+     *
+     * @param item The Thing object to be removed from the room
+     * @return boolean true is the item is removed, otherwise false
      */
-    //TODO: How does thing check to see if it is going to be in a fight?
     public boolean leave(Thing item){
         if (this.roomContents.contains(item)){
-            this.roomContents.remove(item);
-            return true;
+            if (item instanceof Mob) {
+                Mob mobItem = (Mob) item;
+                for (Object obj : this.roomContents) {
+                    if (obj instanceof Critter) {
+                        Critter critterObj = (Critter) obj;
+                        if (critterObj.wantsToFight(mobItem) == false) {
+                            return true;
+                        }
+                        else{
+                            return false;
+                        }
+                    }
+                }
+                this.roomContents.remove(item);
+                return true;
+            }
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
 }
