@@ -1,4 +1,7 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * Class that is designed to be a building block of a Map.

@@ -54,6 +54,9 @@ public class Critter extends Thing implements Lootable, Mob {
      */
     public void takeDamage(int d){
         this.health -= d;
+        if (this.health<0){
+            this.health = 0;
+        }
     }
 
     /**
@@ -74,7 +77,7 @@ public class Critter extends Thing implements Lootable, Mob {
      * @return boolean true if Explorer and health<=0, otherwise false
      */
     public boolean canLoot(Thing looter){
-        return looter instanceof Explorer && isAlive() == false;
+        return looter instanceof Explorer && this.isAlive() == false;
     }
 
     /**
@@ -84,9 +87,9 @@ public class Critter extends Thing implements Lootable, Mob {
      * @param mob A Mob object to fight against
      */
     public void fight(Mob mob){
-        while (mob.isAlive() && this.isAlive()){
+        while(mob.isAlive() && this.isAlive()){
             mob.takeDamage(this.getDamage());
-            if (mob.isAlive()) {
+            if(mob.isAlive()){
                 this.takeDamage(mob.getDamage());
             }
         }

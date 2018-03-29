@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -17,8 +16,9 @@ public class Explorer extends Thing implements Mob {
      * @param p Takes in another Explorer object
      */
     Explorer(Explorer p){
-        super(p.shortDesc, p.longDesc);
-        this.health = p.health;
+        super(p.shortDesc,p.longDesc);
+        this.health = p.getHealth();
+        this.maxHealth = p.maxHealth;
     }
 
     /**
@@ -69,12 +69,16 @@ public class Explorer extends Thing implements Mob {
 
     /**
      * Reduces the health of the explorer, the amount of health reduction is
-     * dependent on the int given in as a parameter.
+     * dependent on the int given in as a parameter. Will not let health go
+     * below 0.
      *
      * @param d Amount of health to take off the Explorers current health.
      */
     public void takeDamage(int d){
-        this.health =- d;
+        this.health -= d;
+        if (this.health<0){
+            this.health = 0;
+        }
     }
 
     /**
@@ -181,12 +185,11 @@ public class Explorer extends Thing implements Mob {
      *         isn't in the Explorers inventory.
      */
     public Thing drop(String s){
-        Iterator<Thing> thingIterator = inventory.iterator();
-        while(thingIterator.hasNext()){
-            if(thingIterator.next().shortDesc == s){
-                Thing thingRemoved = thingIterator.next();
-                this.inventory.remove(thingIterator.next());
-                return thingRemoved;
+        for (Thing obj: this.inventory){
+            if (obj.shortDesc == s){
+                Thing thingHolder = obj;
+                this.inventory.remove(obj);
+                return thingHolder;
             }
         }
         return null;

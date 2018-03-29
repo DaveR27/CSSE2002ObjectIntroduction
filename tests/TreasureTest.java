@@ -33,6 +33,7 @@ public class TreasureTest {
     public void canLoot() {
         assertTrue(this.perfectTreasure.canLoot(this.perfectLooter));
         assertFalse(this.perfectTreasure.canLoot(this.noLooter));
+        assertFalse(this.perfectTreasure.canLoot(this.perfectTreasure));
     }
 
     @Test
@@ -53,6 +54,8 @@ public class TreasureTest {
                 this.descReplaceTreasure.getDescription());
         assertEquals(this.descReplaceTreasure.getDescription(),
                 this.descReplaceTreasure.getShort());
+        assertEquals(this.descReplaceTreasure.getDescription(),
+                this.descReplaceTreasure.getLong());
     }
 
     @Test
@@ -97,6 +100,8 @@ public class TreasureTest {
         this.descReplaceTreasure.setLong("Hello; My \n is Frank \r");
         assertEquals("Hello* My * is Frank *",
                 this.descReplaceTreasure.getLong());
+        assertNotEquals("Hello; My \n is Frank \r",
+                this.descReplaceTreasure.getLong());
     }
 
     @Test
@@ -108,6 +113,8 @@ public class TreasureTest {
         assertEquals("0", this.descReplaceTreasure.getShort());
         this.descReplaceTreasure.setShort("Hello; My \n is Frank \r");
         assertEquals("Hello* My * is Frank *",
+                this.descReplaceTreasure.getShort());
+        assertNotEquals("Hello; My \n is Frank \r",
                 this.descReplaceTreasure.getShort());
     }
 }
