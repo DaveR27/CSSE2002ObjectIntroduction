@@ -16,7 +16,7 @@ public class Critter extends Thing implements Lootable, Mob {
      *               critter is set with a negative number the health of the
      *               critter is set to 0.
      */
-    Critter(String shortDesc, String longDesc, double value, int health){
+    public Critter(String shortDesc, String longDesc, double value, int health){
         super(shortDesc,longDesc);
 
         if (health < 0){

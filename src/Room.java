@@ -127,9 +127,9 @@ public class Room {
                         }
                     }
                 }
-                this.roomContents.remove(item);
-                return true;
             }
+            this.roomContents.remove(item);
+            return true;
         }
         return false;
     }

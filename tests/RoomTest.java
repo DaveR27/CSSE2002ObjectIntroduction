@@ -43,6 +43,7 @@ public class RoomTest {
         this.editDescRoom.setDescription("\n Change \n Message \n");
         assertEquals( "* Change * Message *",
                 this.editDescRoom.getDescription());
+        assertNotEquals("0", this.editDescRoom.getDescription());
     }
 
     @Test
@@ -64,19 +65,18 @@ public class RoomTest {
     @Test
     public void getContents() {
         //Makes Test objects
-        List<Thing> roomTest = new Vector<Thing>();
         Treasure gold = new Treasure("shiny", 30);
         Treasure silver = new Treasure("less shiny", 20);
 
         //Adds to the room
         this.perfectRoom.enter(gold);
         this.perfectRoom.enter(silver);
-        this.editDescRoom.enter(silver);
+        this.editDescRoom.enter(gold);
 
         //Test
         assertNotEquals(this.editDescRoom.getContents(),
                 this.perfectRoom.getContents());
-        this.editDescRoom.enter(gold);
+        this.editDescRoom.enter(silver);
         assertTrue(this.editDescRoom.getContents().equals(
                 this.perfectRoom.getContents()));
     }
@@ -144,6 +144,7 @@ public class RoomTest {
         assertEquals(test, this.editDescRoom.getContents());
 
         this.editDescRoom.leave(testThing);
+        System.out.println(this.editDescRoom.getContents());
         assertNotEquals(test, this.editDescRoom.getContents());
 
     }

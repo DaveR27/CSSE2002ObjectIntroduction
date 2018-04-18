@@ -6,9 +6,9 @@ import java.util.Vector;
  */
 public class Explorer extends Thing implements Mob {
 
-    protected int health;
+    private int health;
     private int maxHealth;
-    protected List<Thing> inventory = new Vector<Thing>();
+    private List<Thing> inventory = new Vector<Thing>();
 
     /**
      * Constructor that takes in another explorer and then passed in explorer

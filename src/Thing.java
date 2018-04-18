@@ -1,6 +1,6 @@
 public class Thing {
-    protected String shortDesc;
-    protected String longDesc;
+    private  String shortDesc;
+    private String longDesc;
 
     /**
      * Creates a Thing Object.
@@ -10,7 +10,7 @@ public class Thing {
      * @param shortDesc A short name or description for Thing.
      * @param longDesc A more detailed description for the Thing.
      */
-    Thing(String shortDesc, String longDesc){
+    public Thing(String shortDesc, String longDesc){
 
         this.shortDesc = shortDesc.replaceAll("\n", "*");
         this.shortDesc = this.shortDesc.replaceAll("\r", "*");
